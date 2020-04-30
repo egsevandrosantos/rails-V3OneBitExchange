@@ -13,7 +13,7 @@ RSpec.describe "Bitcoins", type: :request do
       get '/bitcoins/convert', params: {
         source_currency: 'USD',
         target_currency: 'BTC',
-        value: rand(1..9999)
+        amount: rand(1..9999)
       }
       expect(response).to have_http_status(:success)
     end
@@ -24,7 +24,7 @@ RSpec.describe "Bitcoins", type: :request do
       get '/bitcoins/convert', params: {
         source_currency: 'BTC',
         target_currency: 'USD',
-        value: rand(1..9999)
+        amount: rand(1..9999)
       }
       expect(response).to have_http_status(:success)
     end

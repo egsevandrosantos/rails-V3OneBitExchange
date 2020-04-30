@@ -14,8 +14,8 @@ describe BitcoinService do
   end
 
   it '#call' do
-    value = rand(0..9999)
-    service_bitcoin = BitcoinService.new(source_currency, target_currency, value).call
+    amount = rand(0..9999)
+    service_bitcoin = BitcoinService.new(source_currency, target_currency, amount).call
     expected_bitcoin = 4.36
     expect(service_bitcoin).to eq expected_bitcoin
   end

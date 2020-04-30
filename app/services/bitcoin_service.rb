@@ -2,10 +2,10 @@ require 'rest-client'
 require 'json'
 
 class BitcoinService
-  def initialize(source_currency, target_currency, value)
+  def initialize(source_currency, target_currency, amount)
     @source_currency = source_currency
     @target_currency = target_currency
-    @value = value
+    @amount = amount
   end
 
   def call
@@ -25,7 +25,7 @@ class BitcoinService
       else
         url = "#{url}/tobtc?currency=#{@source_currency}"
       end
-      url = "#{url}&value=#{@value}"
+      url = "#{url}&value=#{@amount}"
       res = RestClient.get url
       JSON.parse(res.body).to_f
     end
