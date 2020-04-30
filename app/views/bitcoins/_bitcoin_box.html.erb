@@ -1,0 +1,77 @@
+<div class="exchange_box col-sm-12">
+  <div class="card">
+    <div class="card-header text-center">
+      Realize uma conversão
+    </div>
+
+    <div class="card-block">
+      <%= form_with url: '/bitcoins/convert', method: :get, id: 'form' do |f| %>
+        <div class="local-currency">
+          <div class="form-group">
+            <p class="title">
+              Sua moeda &nbsp;
+              <button type="button" class="btn data-transfer" click="changeSourceCurrency()">
+                <%= image_tag('data-transfer.png') %>
+              </button>
+            </p>
+            <%= f.select 'source_currency', options_for_select(available_currencies, 'BRL'), {}, { class: 'form-control', id: 'source_currency' } %>
+          </div>
+
+          <div class="form-group">
+            <%= f.number_field 'amount', id: 'amount', class: 'form-control', placeholder: 'Quantidade ($10)', step: 'any', required: true %>
+          </div>
+        </div>
+
+        <div class="destination_currency">
+          <div class="form-group">
+            <p class="title">
+              Moeda destino
+              <button type="button" class="btn data-transfer" click="changeSourceCurrency()">
+                <%= image_tag('data-transfer.png') %>
+              </button>
+            </p>
+            <%= f.select :target_currency, options_for_select(available_currencies, 'BTC'), {}, { class: 'form-control', id: 'target_currency' } %>
+          </div>
+
+          <div class="form-group">
+              <input type="text" id="result" name="result" class="form-control" placeholder="Resultado" readonly>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row d-flex">
+        <%= link_to 'Converter moedas', root_path, class: 'ml-auto btn btn-link' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  const source_currency = document.getElementById('source_currency');
+  const target_currency = document.getElementById('target_currency');
+  const available_currencies = Array.from(source_currency.children);
+  const btcIndex = available_currencies.findIndex((i) => i.value === 'BTC');
+  source_currency.addEventListener('change', function(ev) {
+    changeSourceCurrency();
+  });
+  const changeSourceCurrency = () => {
+    if (source_currency.value === 'BTC') {
+      for (let i = 0, l = available_currencies.length; i < l; i++) {
+        target_currency.children[i].disabled = false;
+      }
+      target_currency.children[btcIndex].disabled = true;
+      if (btcIndex === 0) {
+        target_currency.options.selectedIndex = 1;
+      } else {
+        target_currency.options.selectedIndex = 0;
+      }
+    } else {
+      for (let i = 0, l = available_currencies.length; i < l; i++) {
+        target_currency.children[i].disabled = true;
+      }
+      target_currency.children[btcIndex].disabled = false;
+      target_currency.options.selectedIndex = btcIndex;
+    }
+  }
+  changeSourceCurrency();
+</script>

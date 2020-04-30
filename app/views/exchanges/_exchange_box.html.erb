@@ -1,11 +1,11 @@
-<div class="exchange_box col-sm-12">
+<div class="box col-sm-12">
   <div class="card">
     <div class="card-header text-center">
       Realize uma conversão
     </div>
 
     <div class="card-block">
-      <%= form_with url: '/convert', method: :get, id: 'exchange_form' do |f| %>
+      <%= form_with url: '/convert', method: :get, id: 'form' do |f| %>
         <div class="local-currency">
           <div class="form-group">
             <p class="title">
@@ -38,6 +38,10 @@
           </div>
         </div>
       <% end %>
+
+      <div class="row d-flex">
+        <%= link_to 'Converter bitcoins', bitcoins_path, class: 'ml-auto btn btn-link' %>
+      </div>
     </div>
   </div>
 </div>
